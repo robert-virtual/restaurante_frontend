@@ -1,0 +1,53 @@
+.TodoListActions{
+  box-sizing: border-box;
+  width:100%;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  padding:0.5rem;
+}
+.TodoAddForm{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  padding:0.5rem;
+}
+.TodoAddForm input{
+  width:100%;
+  padding:0.5rem;
+  border:1px solid #ccc;
+  border-radius: 0.25rem;
+  margin-right:0.5rem;
+}
+.TodoListContainer{
+  box-sizing: border-box;
+  width:100%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding:0.5rem;
+  height: calc(100vh - 10rem);
+}
+.TodoListContainer section{
+  display: flex;
+  box-sizing: border-box;
+  padding:0.5rem 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+  width:100%;
+  box-shadow: 0px 1px 3px #000;
+  margin-top:3px;
+}
+
+.TodoListContainer section div:nth-child(2){
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width:2rem;
+  height: 2rem;
+  background-color: #AAA;
+  color:#000;
+  border-radius: 50%;
+  box-shadow: 1px 1px 3px #000;
+}
