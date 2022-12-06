@@ -1,11 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-export interface ICredentials{
-  email: string;
-  password: string;
-}
-export interface ISecurityState {
+interface SecState {
   name: string;
   email: string;
   avatar: string;
@@ -13,7 +9,7 @@ export interface ISecurityState {
   _id: string;
 }
 
-const initialState: ISecurityState = {
+const initialState: SecState = {
   name: "",
   email: "",
   avatar: "",
@@ -21,18 +17,18 @@ const initialState: ISecurityState = {
   _id: "",
 };
 
-export const securitySlice = createSlice({
-  name: "security",
+export const secSlice = createSlice({
+  name: "sec",
   initialState,
   reducers: {
-    setSecurityData: (state, action: PayloadAction<ISecurityState>) => {
+    setSecData: (state, action: PayloadAction<SecState>) => {
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.avatar = action.payload.avatar;
       state.token = action.payload.token;
       state._id = action.payload._id;
     },
-    resetSecurityData: (state) => {
+    resetSecData: (state) => {
       state.name = "";
       state.email = "";
       state.avatar = "";
@@ -42,6 +38,6 @@ export const securitySlice = createSlice({
   },
 });
 
-export const {  setSecurityData, resetSecurityData  } = securitySlice.actions;
-export const selectAuth = (state: RootState) => state.security;
-export default securitySlice.reducer;
+export const { setSecData, resetSecData } = secSlice.actions;
+export const selectAuth = (state: RootState) => state.sec;
+export default secSlice.reducer;

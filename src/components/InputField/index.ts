@@ -1,3 +1,4 @@
 import Field from './Field';
 import FieldSelect from './FieldSelect';
-export { Field, FieldSelect };
+import DateField from './DateField';
+export { Field, FieldSelect, DateField };

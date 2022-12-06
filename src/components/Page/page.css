@@ -11,7 +11,7 @@
   flex-direction: column;
 }
 .withNavBar{
-  min-height: calc(100vh - 4rem);
+  min-height: calc(100vh - 4.1rem);
 }
 .content {
   background-color:#fff;
@@ -20,5 +20,5 @@
 }
 .withNavBar .content {
   margin-top:0.1rem;
-  min-height: calc(100vh - 4.1rem);
+  min-height: calc(100vh - 4.2rem);
 }

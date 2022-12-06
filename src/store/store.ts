@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { appSlice } from "./Slices/appSlice";
-import { securitySlice } from "./Slices/securitySlice";
+import { secSlice } from "./Slices/secSlice";
 import { securityApi } from "./Services/Security";
 import { productosApi } from "./Services/Productos";
 
@@ -10,7 +10,7 @@ const preLoadedState = JSON.parse(localStorage.getItem('reduxState') || '{}');
 export const store = configureStore({
   reducer: {
     app: appSlice.reducer,
-    security: securitySlice.reducer,
+    sec: secSlice.reducer,
     [securityApi.reducerPath]: securityApi.reducer,
     [productosApi.reducerPath]: productosApi.reducer,
   },
@@ -23,7 +23,8 @@ export const store = configureStore({
 });
 
 store.subscribe(() => {
-  localStorage.setItem("reduxState", JSON.stringify(store.getState()));
+  const { sec } = store.getState();
+  localStorage.setItem("reduxState", JSON.stringify({sec}));
 });
 
 setupListeners(store.dispatch);

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
-import { selectAuth } from "@store/Slices/securitySlice";
+import { selectAuth } from "@store/Slices/secSlice";
 import { PropsWithChildren } from "react";
 const PrivateRoute = ({ children, allowedRoles=[] } : PropsWithChildren<{allowedRoles?:string[]}>) => {
   const user = useSelector(selectAuth);
@@ -8,17 +8,17 @@ const PrivateRoute = ({ children, allowedRoles=[] } : PropsWithChildren<{allowed
     try {
       const { token } = user;
       if (!token) {
-        return <Navigate to="/login" replace />
+        return <Navigate to="/signin" replace />
       }
      // const matchedRoles = user.roles.filter((role:string) => allowedRoles.includes(role));
      // if(matchedRoles.length == 0) {
      //   return <Navigate to="/noauthorized" replace />;
      // }
     } catch (ex) {
-      return <Navigate to="/login" replace />
+      return <Navigate to="/signin" replace />
     }
   } else {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/signin" replace />
   }
   return children ? <>{children}</> : <Outlet />;
 }

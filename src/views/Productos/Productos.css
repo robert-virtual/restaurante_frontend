@@ -1,3 +1,8 @@
-.card_img {
-  width: 25rem;
+.floatLeftButton {
+  position: absolute;
+  top: calc(100vh - 7.5rem);
+  right: 0.5rem;
+}
+img {
+  width: 50%;
 }

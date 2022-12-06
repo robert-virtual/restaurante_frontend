@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {  useSigninMutation } from "@store/Services/Security";
-import {  setSecurityData } from "@store/Slices/securitySlice";
+import { useSigninMutation } from "@store/Services/Security";
+import { setSecData } from "@store/Slices/secSlice";
 
-import LoginUX from "./LoginUx";
-const Login = () => {
-  const [signin, { isLoading, status, error, ...mutRest }] = useSigninMutation();
+import SigninUX from "./SigninUx";
+const Signin = () => {
+  const [login, { isLoading, status, error, ...mutRest }] = useSigninMutation();
   const dispatch = useDispatch();
   const Navigator = useNavigate();
 
@@ -14,13 +14,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const handleClick = async () => {
-    const  data = await signin({ email, password }).unwrap();
-    console.log(data);
-    dispatch(setSecurityData(data));
+    const data = await login({ email, password }).unwrap();
+    console.log({data});
+    dispatch(setSecData(data));
     Navigator("/home");
-  }
+  };
   return (
-    <LoginUX
+    <SigninUX
       email={email}
       setEmail={setEmail}
       password={password}
@@ -29,6 +29,6 @@ const Login = () => {
       error={error}
     />
   );
-}
+};
 
-export default Login;
+export default Signin;

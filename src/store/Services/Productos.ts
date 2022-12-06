@@ -1,17 +1,27 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
+
 export interface IProducto {
-  _id: string;
-  nombre:string
+  nombre: string;
   imagen: string;
-  precio: number;
   description: string;
-  categoria: string;
+  precio: number;
+  stock: number;
   createdAt: Date;
-  updatedAt: Date;
+  _id: string;
+  userId: string;
 }
 
-export interface IGetAllProductsResponse {
+export interface INewProducto {
+  nombre: string;
+  imagen: string;
+  description: string;
+  precio: number;
+  stock: number;
+  createdAt: Date;
+}
+
+export interface IGetAllProductosResponse {
   total: number;
   totalPages: number;
   page: number;
@@ -23,21 +33,67 @@ export const productosApi = createApi({
   reducerPath: "productosApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_API_BASE_URL}/productos`,
-    prepareHeaders: (headers, {getState}) => {
+    prepareHeaders: (headers, { getState }) => {
       headers.set("apikey", process.env.REACT_APP_API_KEY as string);
-      const token = (getState() as RootState).security.token;
+      const token = (getState() as RootState).sec.token;
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
-    }
+    },
   }),
+  tagTypes: ["Productos"],
   endpoints: (builder) => ({
     allProductos: builder.query({
-      query: ({page = 1, items = 10}) => ({
+      query: ({ page = 1, items = 10 }) => ({
         url: `?page=${page}&items=${items}`,
-      })
-    })
-  })
+      }),
+      providesTags: ["Productos"],
+    }),
+    productoById: builder.query<IProducto,string>({
+      query: (id ) => `byindex/${id}`,
+      providesTags: ["Productos"],
+    }),
+    allProductosAdmin: builder.query({
+      query: () => "/all",
+      providesTags: ["Productos"],
+    }),
+    updateProducto: builder.mutation({
+      query: ({body,id}:{body: Partial<INewProducto>, id: string}) => {
+        return {
+          url: `update/${id}`,
+          method: "PUT",
+          body,
+        };
+      },
+      invalidatesTags: ["Productos"],
+    }),
+    deleteProducto: builder.mutation({
+      query: (id: string) => {
+        return {
+          url: `delete/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["Productos"],
+    }),
+    newProducto: builder.mutation({
+      query: (body: INewProducto) => {
+        return {
+          url: "new",
+          method: "POST",
+          body,
+        };
+      },
+      invalidatesTags: ["Productos"],
+    }),
+  }),
 });
 
-export const { useAllProductosQuery } = productosApi;
+export const {
+  useAllProductosQuery,
+  useProductoByIdQuery,
+  useAllProductosAdminQuery,
+  useNewProductoMutation,
+  useUpdateProductoMutation,
+  useDeleteProductoMutation,
+} = productosApi;

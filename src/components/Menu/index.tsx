@@ -1,9 +1,14 @@
 import { setShowMenu, selectShowMenu } from "@store/Slices/appSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectAuth, resetSecurityData } from "@store/Slices/securitySlice";
+import { selectAuth, resetSecData } from "@store/Slices/secSlice";
 
-import {BiLogIn, BiLogOut, BiUserPlus,BiFoodMenu } from 'react-icons/bi';
+import {
+  BiLogIn,
+  BiLogOut,
+  BiUserPlus,
+  BiListUl,
+} from "react-icons/bi";
 
 import "./Menu.css";
 
@@ -13,31 +18,43 @@ const Menu = () => {
   const dispatch = useDispatch();
   const classNames = showMenu ? "menu" : "menu hidden";
   const navigate = useNavigate();
-  const onClickHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const onClickHandler = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     e.preventDefault();
     e.stopPropagation();
     dispatch(setShowMenu(!showMenu));
-    navigate((e.target as HTMLAnchorElement).getAttribute("href")||'');
+    navigate((e.target as HTMLAnchorElement).getAttribute("href") || "");
   };
-  const onLogoutHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const onLogoutHandler = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch(resetSecurityData());
+    dispatch(resetSecData());
     dispatch(setShowMenu(!showMenu));
-    navigate("/login");
+    navigate("/signin");
   };
   if (!user?.token) {
     return (
       <nav className={classNames}>
         <ul>
           <li>
-            <a href="/login" onClick={onClickHandler}>
-              <BiLogIn />&nbsp;Iniciar Sesión
+            <a href="/signin" onClick={onClickHandler}>
+              <BiLogIn />
+              &nbsp;Iniciar Sesión
             </a>
           </li>
           <li>
             <a href="/signup" onClick={onClickHandler}>
-              <BiUserPlus/>&nbsp;Crear Cuenta
+              <BiUserPlus />
+              &nbsp;Crear Cuenta
+            </a>
+          </li>
+          <li>
+            <a href="/productos" onClick={onClickHandler}>
+              <BiListUl />
+              &nbsp;Productos
             </a>
           </li>
         </ul>
@@ -49,12 +66,14 @@ const Menu = () => {
         <ul>
           <li>
             <a href="/home" onClick={onLogoutHandler}>
-              <BiLogOut/>&nbsp;Cerrar Sesión
+              <BiLogOut />
+              &nbsp;Cerrar Sesión
             </a>
           </li>
           <li>
             <a href="/productos" onClick={onClickHandler}>
-              <BiFoodMenu/>&nbsp;Productos
+              <BiListUl />
+              &nbsp;Productos
             </a>
           </li>
         </ul>

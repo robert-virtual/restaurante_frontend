@@ -12,7 +12,7 @@ export interface ILoginUXProps {
   error: any;
   handleClick: () => void;
 }
-const LoginUX = (
+const SigninUX = (
   {
     email,
     setEmail,
@@ -49,4 +49,4 @@ const LoginUX = (
   );
 }
 
-export default LoginUX;
+export default SigninUX;

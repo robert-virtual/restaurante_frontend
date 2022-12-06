@@ -5,34 +5,45 @@ import {
   Navigate,
 } from "react-router-dom";
 import PrivateRoute from "@components/PrivateRoute";
-import Login from "@views/Login";
+import Signin from "@views/Signin";
 import SignUp from "@views/SignUp";
-import Home from "@views/Home";
-import Productos from "@views/Productos";
-import ChartsExamples from "@views/ChartsExamples";
+import Producto from "@views/Productos";
+import ProductoNew from "@views/ProductoNew";
 import NotFound from "@views/NotFound";
+import ProductoDetail from "@views/ProductoDetail";
 
 const Routes = () => {
   return (
     <Router>
       <Switch>
         <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/charts" element={<ChartsExamples />} />
         <Route
           path="/home"
           element={
-            <PrivateRoute allowedRoles={["public","admin"]}>
-              <Home />
-            </PrivateRoute>
+              <Producto />
           }
         />
          <Route
           path="/productos"
           element={
+              <Producto />
+          }
+        />
+        <Route
+          path="/productos/new"
+          element={
             <PrivateRoute allowedRoles={["public","admin"]}>
-              <Productos />
+              <ProductoNew />
+            </PrivateRoute>
+          }
+        />
+         <Route
+          path="/productos/:id"
+          element={
+            <PrivateRoute allowedRoles={["public","admin"]}>
+              <ProductoDetail />
             </PrivateRoute>
           }
         />
