@@ -3,8 +3,10 @@ import { Field } from "@components/InputField";
 import ActionField from "@components/ActionField";
 import { PrimaryButton, Button } from "@components/Buttons";
 import { INewProducto } from "@store/Services/Productos";
+import {  useState } from "react";
 export interface IProductoNewUx {
   form: INewProducto;
+  formRef: React.RefObject<HTMLFormElement>;
   onChangeHandler: (name: string, value: string | number) => void;
   onSubmitHandler: () => void;
   onCancelHandler: () => void;
@@ -13,12 +15,21 @@ const ProductoNewUx = ({
   form,
   onChangeHandler,
   onSubmitHandler,
+  formRef,
   onCancelHandler,
 }: IProductoNewUx) => {
+const [images,setImages] = useState<(File | null)[]>()
   return (
     <Page pageTitle="Nuevo Producto">
       <section>
-        <img src={form.imagen}/>
+        <div className="row">
+        {form.imagenes.map((e)=>(
+              <img key={e} src={e}/>
+              ))}
+
+        </div>
+        <form ref={formRef} method="post" encType="multipart/form-data" action={process.env.REACT_APP_API_BASE_URL+"/productos/new"} >
+
         <Field
           name="nombre"
           labelText="Nombre"
@@ -45,14 +56,22 @@ const ProductoNewUx = ({
           }}
         />
         <Field
-          name="imagen"
-          labelText="Imagen url"
-          value={String(form.imagen)}
-          type="text"
+          name="imagenes"
+          labelText="Imagenes"
+          type="file"
+          multiple
           onChange={(e) => {
-            onChangeHandler(e.target.name, e.target.value);
+            if (!e.target.files) {
+              return 
+            }
+            const files = Array.from(e.target.files)
+            console.log({files});
+           setImages(files) 
+
+            // onChangeHandler(e.target.name, e.target.value);
           }}
         />
+        </form>
         <ActionField>
           <PrimaryButton
             onClick={(e) => {

@@ -26,7 +26,13 @@ const ProductoCard = (
         viewDetailClick(item._id);
       }}
     >
-      <img src={item.imagen} />
+
+        <div className="row">
+        {item.imagenes.map((e)=>(
+              <img key={e} src={e}/>
+              ))}
+
+        </div>
       <h2>{item.nombre}</h2>
       <p>{item.description}</p>
       <hr />
