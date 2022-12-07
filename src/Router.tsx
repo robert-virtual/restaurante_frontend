@@ -18,7 +18,6 @@ const Routes = () => {
       <Switch>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<SignUp />} />
         <Route
           path="/home"
           element={

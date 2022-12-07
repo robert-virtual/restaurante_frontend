@@ -46,12 +46,6 @@ const Menu = () => {
             </a>
           </li>
           <li>
-            <a href="/signup" onClick={onClickHandler}>
-              <BiUserPlus />
-              &nbsp;Crear Cuenta
-            </a>
-          </li>
-          <li>
             <a href="/productos" onClick={onClickHandler}>
               <BiListUl />
               &nbsp;Productos
