@@ -26,14 +26,10 @@ const ProductoNew = () => {
   };
   const onSubmitHandler = async () => {
   if (!formRef || !formRef.current) {
-  console.log("no existe formref ni current");
-  
    return 
   }
   const formData = new FormData(formRef.current)
   if (formData) {
-  console.log("formdata creado");
-  
     try {
       const data = await newProductoForm(formData).unwrap();
       console.log(data);
