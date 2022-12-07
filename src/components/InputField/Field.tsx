@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from 'react';
 import './Field.css';
-export interface IFieldProps extends React.DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+export interface IFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   labelText:string;
   name:string;
   onChange?: (e:React.ChangeEvent<HTMLInputElement>) => void;
@@ -16,7 +16,7 @@ const Field  = ({
   return (
     <fieldset className="input">
       <label htmlFor={name}>{labelText}</label>
-      <input  type={type} name={name} id={name} value={value} onChange={onChange} {...rest} />
+      <input type={type} name={name} id={name} value={value} onChange={onChange} {...rest} />
     </fieldset>
   );
 }

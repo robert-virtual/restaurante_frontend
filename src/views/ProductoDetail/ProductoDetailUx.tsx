@@ -72,13 +72,7 @@ const ProductoDetailUx = ({
               </Button>
             </ActionField>
           </div>
-
-        <div className="row">
-        {form.imagenes.map((e)=>(
-              <img key={e} src={e}/>
-              ))}
-
-        </div>
+          <img src={form.imagen} />
           <Field
             name="nombre"
             onChange={(e) => {

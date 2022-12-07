@@ -3,7 +3,7 @@ import { RootState } from "../store";
 
 export interface IProducto {
   nombre: string;
-  imagenes: string[];
+  imagen: string;
   description: string;
   precio: number;
   stock: number;
@@ -14,7 +14,7 @@ export interface IProducto {
 
 export interface INewProducto {
   nombre: string;
-  imagenes: string[];
+  imagen: string;
   description: string;
   precio: number;
   stock: number;
@@ -76,16 +76,6 @@ export const productosApi = createApi({
       },
       invalidatesTags: ["Productos"],
     }),
-    newProductoForm: builder.mutation({
-      query: (body:FormData) => {
-        return {
-          url: "new",
-          method: "POST",
-          body,
-        };
-      },
-      invalidatesTags: ["Productos"],
-    }),
     newProducto: builder.mutation({
       query: (body: INewProducto) => {
         return {
@@ -104,7 +94,6 @@ export const {
   useProductoByIdQuery,
   useAllProductosAdminQuery,
   useNewProductoMutation,
-  useNewProductoFormMutation,
   useUpdateProductoMutation,
   useDeleteProductoMutation,
 } = productosApi;
